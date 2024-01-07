@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -18,10 +19,10 @@ public class Professor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String dataNascimento;
+    private LocalDate dataNascimento;
     private String email;
     private String rg;
     private String cpf;
     private String areaDoConhecimento;
-    private String dataDaContratacao;
+    private LocalDate dataDaContratacao;
 }

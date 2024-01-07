@@ -46,14 +46,11 @@ public class ProfessorService {
         professorUpdated.setAreaDoConhecimento(professor.getAreaDoConhecimento());
         professorUpdated.setDataDaContratacao(professor.getDataDaContratacao());
 
-        repository.save(professor);
+        repository.save(professorUpdated);
     }
 
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
-
-
-
 
 }
