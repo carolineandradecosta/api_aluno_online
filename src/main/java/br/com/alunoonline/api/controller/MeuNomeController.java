@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/meu-nome")
-public class MeuNomeController {
+public class  MeuNomeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
