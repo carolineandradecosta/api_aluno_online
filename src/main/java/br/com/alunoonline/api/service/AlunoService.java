@@ -28,6 +28,23 @@ public class AlunoService {
         return repository.findById(id);
     }
 
+    public Aluno findByEmail(String email){
+        return repository.findByEmail(email);
+    }
+
+    public Aluno findByEmailJPQL(String email){
+        return repository.buscarPorEmail(email);
+    }
+
+    public List<Aluno> listarTodosAlunosOrdenadoPorNome(){
+        return repository.listarTodosAlunosOrdenadoPorNome();
+    }
+
+    public Aluno findByNomeAndEmail(String nome, String email){
+        return repository.findByNomeAndEmail(nome, email);
+    }
+
+
     public void update(Long id, Aluno aluno) {
         Optional<Aluno> alunoFromDb = findById(id);
 

@@ -29,10 +29,37 @@ public class AlunoController {
        return service.findAll();
     }
 
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Aluno> findById(@PathVariable Long id) {
         return service.findById(id);
+    }
+
+
+    @GetMapping("/email/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public Aluno findByEmail(@PathVariable String email){
+        return service.findByEmail(email);
+    }
+
+
+    @GetMapping("/email/jpql/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public Aluno findByEmailJPQL(String email){
+        return service.findByEmailJPQL(email);
+    }
+
+    @GetMapping("/all/nome/asc")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Aluno> listarTodosAlunosOrdenadoPorNome(){
+        return service.listarTodosAlunosOrdenadoPorNome();
+    }
+
+    @GetMapping("nome/{nome}/email/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public Aluno findByNomeAndEmail(@PathVariable String nome, @PathVariable String email){
+        return service.findByNomeAndEmail(nome, email);
     }
 
     @PutMapping("/{id}")
@@ -40,6 +67,7 @@ public class AlunoController {
     public void update(@PathVariable Long id, @RequestBody Aluno aluno) {
         service.update(id, aluno);
     }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

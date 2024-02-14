@@ -1,6 +1,7 @@
 package br.com.alunoonline.api.controller;
 
 import br.com.alunoonline.api.model.Disciplina;
+import br.com.alunoonline.api.model.dto.DisciplinaDto;
 import br.com.alunoonline.api.service.DisciplinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,4 +30,23 @@ public class DisciplinaController {
     public List<Disciplina> findByProfessorId(@PathVariable Long professorId){
         return service.findByProfessorId(professorId);
     }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Long id, @RequestBody DisciplinaDto disciplinaDto){
+        service.update(id, disciplinaDto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id){
+        service.deleteById(id);
+    }
+
+    @GetMapping("/professor/email/{email}/asc")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Disciplina> listarDisciplinaPorProfessor(@PathVariable String email){
+        return service.listarDisciplinaPorProfessor(email);
+    }
+
 }
