@@ -1,10 +1,14 @@
 package br.com.alunoonline.api.controller;
 
+import br.com.alunoonline.api.client.ViaCepClient;
 import br.com.alunoonline.api.model.Aluno;
+import br.com.alunoonline.api.model.dto.AlunoDTO;
 import br.com.alunoonline.api.repository.AlunoRepository;
 import br.com.alunoonline.api.service.AlunoService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,10 +16,25 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/aluno")
+@Log4j2
 public class AlunoController {
 
     @Autowired
     AlunoService service;
+
+    @Autowired
+    ViaCepClient viaCepClient;
+
+    @GetMapping("/cep/{cep}")
+    public ResponseEntity<String> consultarCep(@PathVariable String cep){
+        log.info("Consultando Cep do aluno : " + cep);
+        return ResponseEntity.ok(viaCepClient.consultaCep(cep));
+    }
+
+    @GetMapping("nome/email/{id}")
+    public ResponseEntity<AlunoDTO> consultarEmailAlunoById(@PathVariable Long id){
+        return ResponseEntity.ok(service.consultaAlunoEmail(id));
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
