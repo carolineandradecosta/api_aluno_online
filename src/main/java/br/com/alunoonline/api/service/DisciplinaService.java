@@ -26,44 +26,39 @@ public class DisciplinaService {
         return repository.save(disciplina);
     }
 
+    public List<Disciplina> findAll() {
+        return repository.findAll();
+    }
+
+    public Optional<Disciplina> findById(Long id) {
+        if (repository.findById(id).isEmpty()) {
+            throw new RuntimeException("Disciplina não encontrada");
+        }
+        return repository.findById(id);
+    }
+
     public List<Disciplina> findByProfessorId(Long professorId) {
         return repository.findByProfessorId(professorId);
     }
 
     public void update(Long id, DisciplinaDto disciplinaDto) {
         Optional<Disciplina> disciplinaFromDb = repository.findById(id);
-        if(disciplinaFromDb.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Disciplina não encontrada");
-        }
         Disciplina disciplinaUpdated = disciplinaFromDb.get();
 
         Optional<Professor> professorFromDb = professorRepository.findById(disciplinaDto.getProfessor_id());
-        if(professorFromDb.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Professor não encontrado");
-        }
         Professor professorUpdated = professorFromDb.get();
 
-        disciplinaUpdated.getId();
         disciplinaUpdated.setNome(disciplinaDto.getNome());
-        disciplinaUpdated.setProfessor(new Professor(
-                professorUpdated.getId(),
-                professorUpdated.getNome(),
-                professorUpdated.getDataNascimento(),
-                professorUpdated.getEmail(),
-                professorUpdated.getRg(),
-                professorUpdated.getCpf(),
-                professorUpdated.getAreaDoConhecimento(),
-                professorUpdated.getDataDaContratacao()
-        ));
+        disciplinaUpdated.setProfessor(professorUpdated);
 
         repository.save(disciplinaUpdated);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
-    public List<Disciplina> listarDisciplinaPorProfessor(String email){
+    public List<Disciplina> listarDisciplinaPorProfessor(String email) {
         return repository.listarDisciplinaPorProfessor(email);
     }
 }

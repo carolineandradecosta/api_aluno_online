@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/disciplina")
@@ -29,6 +30,18 @@ public class DisciplinaController {
     @ResponseStatus(HttpStatus.OK)
     public List<Disciplina> findByProfessorId(@PathVariable Long professorId){
         return service.findByProfessorId(professorId);
+    }
+
+    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Disciplina> findAll(){
+        return service.findAll();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<Disciplina> findById(@PathVariable Long id){
+        return service.findById(id);
     }
 
     @PutMapping("/{id}")

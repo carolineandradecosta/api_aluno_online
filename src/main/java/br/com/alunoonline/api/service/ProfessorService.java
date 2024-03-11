@@ -24,6 +24,9 @@ public class ProfessorService {
     }
 
     public Optional<Professor> findById(Long id) {
+        if(repository.findById(id).isEmpty()){
+            throw new RuntimeException("Professor não encontrado");
+        }
         return repository.findById(id);
     }
 
